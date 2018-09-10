@@ -26,4 +26,9 @@ export class ProductService {
   public updateProduct(documentId: string, data: any) {
     return this.firestore.collection('products').doc(documentId).set(data);
   }
+
+  //Borra un gato
+  public deleteProduct(documentId: string) {
+    return this.firestore.collection('products').doc(documentId).delete();
+  }
 }

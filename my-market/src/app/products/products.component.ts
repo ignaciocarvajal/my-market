@@ -12,6 +12,7 @@ export class ProductsComponent implements OnInit {
   public products = [];
   public documentId = null;
   public currentStatus = 1;
+
   public newProductForm = new FormGroup({
     title: new FormControl('', Validators.required),
     image_url: new FormControl('', Validators.required),
@@ -72,6 +73,27 @@ export class ProductsComponent implements OnInit {
         console.log(error);
       });
     }
+  }
+
+  public editProduct(documentId) {
+    let editSubscribe = this.productService.getProduct(documentId).subscribe((product) => {
+      this.currentStatus = 2;
+      this.documentId = documentId;
+      this.newProductForm.setValue({
+        id: documentId,
+        title: product.payload.data().title,
+        image_url: product.payload.data().image_url,
+      });
+      editSubscribe.unsubscribe();
+    });
+  }
+
+  public deleteProduct(documentId) {
+    this.productService.deleteProduct(documentId).then(() => {
+      console.log('Documento eliminado!');
+    }, (error) => {
+      console.error(error);
+    });
   }
 
 }
