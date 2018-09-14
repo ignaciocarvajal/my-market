@@ -1,34 +1,39 @@
-<div class="grd">
-  <div class="grd-row">
-    <div class="grd-row-col-2">
-      <h1> My market</h1>
+<div class="container margin-container">
+  <div class="row">
+    <div class="col-md-6">
+      <h1>New Product</h1>
       <form (ngSubmit)="newProduct(newProductForm.value)" [formGroup]="newProductForm">
         <input type="hidden" formControlName="id">
-
-        <label for="title">Nombre</label>
-        <input type="text" id="title" formControlName="title">
-
-        <label for="url_img">Imagen</label>
-        <input type="url_img"id="url_img" formControlName="image_url">
-
-        <input type="submit" class="btn--blue btn--add" [disabled]="!newProductForm.valid" value="Agregar">
+        <div class="form-group">
+          <label for="title">Nombre</label>
+          <input type="text" class="form-control" id="title" formControlName="title">
+        </div>
+        <div class="form-group">
+          <label for="url_img">Imagen</label>
+          <input type="text" class="form-control" id="url_img" formControlName="image_url">
+        </div>
+        <input type="submit" class="btn btn-primary" [disabled]="!newProductForm.valid" value="Agregar">
       </form>
     </div>
-    <div class="grd-row-col-4">
-      <div class="cats_container">
-        <div class="media" *ngFor="let product of products">
-          <div class="media-figure">
-            <img [src]="product.data.image_url"  style="width: 100px;height: 100px">
-          </div>
-          <div class="media-body">
-            <p>{{product.data.title}}</p>
-            <div class="btn--group">
-              <button class="btn--green btn--s btn1" (click)="editProduct(product.id)">Editar</button>
-              <button class="btn--red btn--s btn2" (click)="deleteProduct(product.id")>Eliminar</button>
+    <div id="product-list"class="col-md-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12" *ngFor="let product of products">
+            <div class="card" style="width: 18rem;">
+              <img class="card-img-top" [src]="product.data.image_url" alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title">{{product.data.title}}</h5>
+                <div class="col-md-12">
+                  <button class="btn btn-warning btn-sm" style="margin-right: 10px" (click)="editProduct(product.id)">Editar</button>
+                  <button class="btn btn-danger btn-sm" (click)="deleteProduct(product.id)">Eliminar</button>
+                </div>
+              </div>
             </div>
+            <br>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+

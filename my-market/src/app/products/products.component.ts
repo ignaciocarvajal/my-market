@@ -10,6 +10,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class ProductsComponent implements OnInit {
 
   public products = [];
+  public product:any;
   public documentId = null;
   public currentStatus = 1;
 
@@ -79,18 +80,19 @@ export class ProductsComponent implements OnInit {
     let editSubscribe = this.productService.getProduct(documentId).subscribe((product) => {
       this.currentStatus = 2;
       this.documentId = documentId;
+      this.product = product;
       this.newProductForm.setValue({
         id: documentId,
-        title: product.payload.data().title,
-        image_url: product.payload.data().image_url,
+        title: this.product.payload.data().title,
+        image_url: this.product.payload.data().image_url,
       });
       editSubscribe.unsubscribe();
     });
   }
 
   public deleteProduct(documentId) {
-    this.productService.deleteProduct(documentId).then(() => {
-      console.log('Documento eliminado!');
+    this.productService.deleteProduct(documentId).then((product) => {
+      console.log('Documento eliminado!' + product);
     }, (error) => {
       console.error(error);
     });
