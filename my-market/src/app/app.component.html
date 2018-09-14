@@ -1,2 +1,11 @@
-
-<router-outlet></router-outlet>
+<div class="container-fluid no-scroll">
+  <app-header></app-header>
+  <main role="main" class="container">
+    <div class="starter-template">
+      <div (window:scroll)="doSomethingOnWindowsScroll($event)">
+      <router-outlet></router-outlet>
+      </div>
+    </div>
+  </main>
+</div>
+<app-footer></app-footer>
